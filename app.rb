@@ -1,6 +1,7 @@
 require 'bundler/setup'
 require 'sinatra/base'
 require 'sinatra/jsonp'
+require 'haml'
 require 'yahoo_parse_api'
 
 YahooParseApi::Config.app_id = 'dj0zaiZpPVhOT2VrU00xRVZ2dyZzPWNvbnN1bWVyc2VjcmV0Jng9NmQ-'
@@ -9,6 +10,11 @@ class SakkoTan < Sinatra::Base
   helpers Sinatra::Jsonp
 
   get '/' do
+    @title = 'さっこたんAPI'
+    haml :index
+  end
+  
+  get '/sakkotan' do
     str = params.key?('str') ? params['str'] : ''
     reading = reading(str)
     sakkotan = sakkotan(reading)
